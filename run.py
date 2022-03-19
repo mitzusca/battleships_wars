@@ -65,4 +65,49 @@ def welcome_message():
     print('Use numbers between 1 and 7 to locate them on the row and column.')
 
 
-welcome_message()
+def your_guesses():
+    """
+    
+    """
+    print('This is the computer board!')
+    print_board(your_guesses_board)
+    repeat = True
+    while repeat:
+        while True:
+            chosen_row = input('Choose the ROW:')
+            if validate_data(chosen_row):
+                break
+        while True:
+            chosen_column = input('Choose the column:')
+            if validate_data(chosen_column):
+                break    
+        chosen_row = int(chosen_row) -1
+        chosen_column = int(chosen_column) -1 
+        # int -1 because python begins with 0 and it will be used numbers between 1 and 7
+        if  (your_guesses_board[chosen_row][chosen_column] == "O" or
+            your_guesses_board[chosen_row][chosen_column] == "X"):
+            print('This time try a new spot!')
+        else:
+            repeat False
+    if computer_board[chosen_row][chosen_column] == "?":
+        your_guesses_board[chosen_row][chosen_column] = "X"
+        print("\n Bravo, you hit him! ")
+    else: 
+        your_guesses_board[chosen_row][chosen_column] == "O"
+        print('\n Unfortunately you missed!')
+def computer_guesses():
+    pass
+
+def validate_data(value):
+    """
+    If value is not an integer between 1 and 7 and, it raise an error and request 
+    a new value
+    """
+    try:
+        if int(value) > 7 or int(value) < 1 :
+            raise Vallue Error('Please choose an number between 1 and 7!')
+        except ValueError as e:
+            print(f'Invalid data {e}, please try again.')
+            print('Choose an number between 1 and 7.')
+            return False
+        return True
