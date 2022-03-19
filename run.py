@@ -78,11 +78,11 @@ def your_guesses():
     repeat = True
     while repeat:
         while True:
-            chosen_column = input('Choose the Column:')
+            chosen_column = input('Choose the Column: \n')
             if validate_data(chosen_column):
                 break
         while True:
-            chosen_row = input('Choose the Row:')
+            chosen_row = input('Choose the Row: \n')
             if validate_data(chosen_row):
                 break
         chosen_column = int(chosen_column)-1
