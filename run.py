@@ -45,10 +45,24 @@ def create_ship(board):
 
 def create_boards():
     """
-    Creating boards and ships for you and computer
+    Calling to create boards and ships for you and computer
     """
     create_board(your_board)
     create_board(computer_board)
     create_board(your_guesses_board)
+    create_ship(your_board)
+    create_ship(computer_board)
 
-print(create_boards())   
+
+def welcome_message():
+    """
+    Welcome message that explains the game idea and ask for a nickname
+    """
+    print("Welcome to Warships Battle!")
+    nickname = input('Type your nickname and press enter: \n')
+    print(f'\nHello {nickname}! Help us to destroy all 6 ships that belongs to computer')
+    print('? are undiscovered locations, X represents a HIT!, and O represents a MISS!')
+    print('Use numbers between 1 and 7 to locate them on the row and column.')
+
+
+welcome_message()
