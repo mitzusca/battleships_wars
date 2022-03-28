@@ -17,10 +17,9 @@ def create_board(board):
 def print_board(board):
     """
     Print the board and remove quotes, commas and brackets
-    adding "~" as waves
     """
     for ind in board:
-        print("~".join(ind))
+        print(" ".join(ind))
 
 
 def random_num(board):
@@ -50,19 +49,22 @@ def welcome_message():
     """
     print("Welcome to Warships Battle!")
     nickname = input('Type your nickname and press enter: \n')
-    print(f'\nHello {nickname}! Help us to destroy all')
-    print('6 ships that belongs to computer')
-    print('? are undiscovered locations, X represents a HIT!')
-    print('and O represents a MISS!')
-    print('Use numbers between 1 and 7 to locate them on the row and column.')
+    print(f'\nHello {nickname}!\n')
+    print('There are hidden 6 ship\'s under computer map')
+    print('Using numbers between 1 and 7')
+    print('Discover all ship\'s to destroy them')
+    print('\n? are undiscovered locations')
+    print('X represent a HIT! ')
+    print('O represents a MISS!')
 
 
 def create_boards():
     """
-    Calling to create boards and ships for you and computer
+    Calling functions to create boards and ships for player and computer
     """
-    create_board(your_board)
+
     create_board(computer_board)
+    create_board(your_board)
     create_board(your_guesses_board)
     create_ship(your_board)
     create_ship(computer_board)
@@ -73,22 +75,22 @@ def your_guesses():
     Add method for guessing location to change it acordingly
     and validate if inputs are integers between 1 and 7
     """
-    print('This is the computer board!')
     print_board(your_guesses_board)
     repeat = True
     while repeat:
         while True:
-            chosen_column = input('Choose the Column: \n')
+            chosen_column = input('\nChoose the Column:')
             if validate_data(chosen_column):
                 break
         while True:
-            chosen_row = input('Choose the Row: \n')
+            chosen_row = input('Choose the Row:')
             if validate_data(chosen_row):
                 break
+        print(f'\nYou have chosen column {chosen_column}/ row {chosen_row})')
         chosen_column = int(chosen_column)-1
         chosen_row = int(chosen_row)-1
-        # int -1 because python begins with 0 and it will
-        # be used numbers between 1 and 7
+        # int -1 because python begins with 0 and we want to use
+        # numbers between 1 and 7
         if (your_guesses_board[chosen_row][chosen_column] == " O " or
                 your_guesses_board[chosen_row][chosen_column] == " X "):
             print('This time try a new spot!')
@@ -96,17 +98,16 @@ def your_guesses():
             repeat = False
     if computer_board[chosen_row][chosen_column] == " @ ":
         your_guesses_board[chosen_row][chosen_column] = " X "
-        print("\n Bravo, you hit him! ")
+        print("Bravo, you hit him!\n")
     else:
         your_guesses_board[chosen_row][chosen_column] = " O "
-        print('\n Unfortunately you missed!')
+        print('Unfortunately you missed!\n')
 
 
 def computer_guesses():
     """
     Computer guess at user board using randomly generate coordinates
     """
-    print('\n Computer turn!')
     repeat = True
     chosen_column = random_num(computer_board)
     chosen_row = random_num(computer_board)
@@ -118,31 +119,32 @@ def computer_guesses():
             chosen_row = random_num(computer_board)
         else:
             repeat = False
-    print(f'Computer choosed {chosen_row + 1},{chosen_column + 1}')
+    print(f'Computer choose column {chosen_column + 1}/ row {chosen_row + 1})')
     if your_board[chosen_row][chosen_column] == " @ ":
         your_board[chosen_row][chosen_column] = " X "
         print('Computer hit you!')
     else:
         your_board[chosen_row][chosen_column] = " O "
-        print('Super, he missed!')
+        print('Computer missed you!')
 
 
 def new_game():
     """
-    The main loop to generate a new game
+    The main loop to generate a new game and play the game
     """
     create_boards()
     welcome_message()
     i = 0
     while i < 30:
-        print(f'This is turn {i+1}/30 \n')
-        your_guesses()
-        print_board(your_guesses_board)
         input("\nPress Enter to continue...")
-        computer_guesses()
-        print('Your board:')
+        print(f'\nThis is turn {i+1} from 30 ')
+        print('\nThis is your board!')
         print_board(your_board)
-        input("\nPress Enter to continue...")
+        print(' ')
+        print("-" * 35)
+        print('\nThis is the computer board!')
+        your_guesses()
+        computer_guesses()
         i += 1
         if check_winner(your_board) == 6:
             i = 30
@@ -158,10 +160,10 @@ def validate_data(value):
     """
     try:
         if int(value) > 7 or int(value) < 1:
-            raise ValueError('Please choose an number between 1 and 7!')
+            raise ValueError
     except ValueError as e:
-            print(f'Invalid data {e}, please try again.')
-            print('Choose an number between 1 and 7.')
+            print('Invalid value!')
+            print('Values must be numbers betwen 1 and 7!\n')
             return False
     return True
 
@@ -185,7 +187,7 @@ def check_winner_final():
     if your_result > computer_result:
         print("Congratulations! You WIN!")
     elif your_result < computer_result:
-        print("Too bad! - the computer had the most hits!")
+        print("\nToo bad! - the computer had the most hits!")
     else:
-        print("It was a draw!")
+        print("\nIt was a draw!")
 new_game()
