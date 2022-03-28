@@ -86,7 +86,7 @@ def your_guesses():
             chosen_row = input('Choose the Row:')
             if validate_data(chosen_row):
                 break
-        print(f'\nYou have chosen column {chosen_column}/ row {chosen_row})')
+        print(f'\nYou have chosen column {chosen_column}/ row {chosen_row}')
         chosen_column = int(chosen_column)-1
         chosen_row = int(chosen_row)-1
         # int -1 because python begins with 0 and we want to use
@@ -119,7 +119,7 @@ def computer_guesses():
             chosen_row = random_num(computer_board)
         else:
             repeat = False
-    print(f'Computer choose column {chosen_column + 1}/ row {chosen_row + 1})')
+    print(f'Computer choose column {chosen_column + 1}/ row {chosen_row + 1}')
     if your_board[chosen_row][chosen_column] == " @ ":
         your_board[chosen_row][chosen_column] = " X "
         print('Computer hit you!')
